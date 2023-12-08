@@ -126,6 +126,29 @@ class LinkedList {
 
     return this;
   }
+
+  remove(index) {
+    if (index === 0) {
+      return this.shift();
+    }
+
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    const before = this.get(index - 1);
+    const temp = before.next;
+
+    before.next = temp.next;
+    temp.next = null;
+    this.length--;
+
+    return temp;
+  }
 }
 
 const linkedList = new LinkedList(4);
@@ -136,4 +159,5 @@ console.log(linkedList.shift());
 console.log(linkedList.get(0));
 linkedList.set(0, 99);
 linkedList.insert(1, 55);
+console.log(linkedList.remove(0));
 console.log(linkedList);
