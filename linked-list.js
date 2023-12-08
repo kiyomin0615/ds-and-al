@@ -149,15 +149,31 @@ class LinkedList {
 
     return temp;
   }
+
+  reverse() {
+    let temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+
+    let next = temp.next;
+    let prev = null;
+
+    for (let i = 0; i < this.length; i++) {
+      next = temp.next;
+      temp.next = prev;
+      prev = temp;
+      temp = next;
+    }
+
+    return this;
+  }
 }
 
-const linkedList = new LinkedList(4);
-linkedList.push(7);
-console.log(linkedList.pop());
-linkedList.unshift(11);
-console.log(linkedList.shift());
-console.log(linkedList.get(0));
-linkedList.set(0, 99);
-linkedList.insert(1, 55);
-console.log(linkedList.remove(0));
+const linkedList = new LinkedList(1);
+linkedList.push(2);
+linkedList.push(3);
+linkedList.push(4);
+linkedList.push(5);
+console.log(linkedList);
+linkedList.reverse();
 console.log(linkedList);
