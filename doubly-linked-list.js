@@ -104,7 +104,7 @@ class DoublyLinkedList {
       }
     } else {
       temp = this.tail;
-      for (let i = index - 1; i > index; i--) {
+      for (let i = this.length - 1; i > index; i--) {
         temp = temp.prev;
       }
     }
