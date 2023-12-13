@@ -51,9 +51,27 @@ class DoublyLinkedList {
 
     return temp;
   }
+
+  unshift(value) {
+    const newNode = new Node(value);
+    
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+
+    this.length++;
+
+    return this;
+  }
 }
 
 const doublyLinkedList = new DoublyLinkedList(10);
 doublyLinkedList.push(32);
 console.log(doublyLinkedList.pop());
+doublyLinkedList.unshift(1);
 console.log(doublyLinkedList);
