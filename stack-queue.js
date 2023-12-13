@@ -72,6 +72,27 @@ class Queue {
 
     return this;
   }
+
+  // Linked List의 shift()와 동일하다
+  dequeue() {
+    if (this.length === 0) {
+      return null;
+    }
+
+    let temp = this.first;
+
+    if (this.length === 1) {
+      this.first = null;
+      this.last = null;
+    } else {
+      this.first = this.first.next;
+      temp.next = null;
+    }
+
+    this.length--;
+
+    return temp;
+  }
 }
 
 let stack = new Stack(11);
@@ -86,4 +107,6 @@ let queue = new Queue(4);
 queue.enqueue(9);
 queue.enqueue(5);
 queue.enqueue(21);
+queue.dequeue();
+queue.dequeue();
 console.log(queue);
