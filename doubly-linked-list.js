@@ -111,6 +111,17 @@ class DoublyLinkedList {
 
     return temp;
   }
+
+  set(index, value) {
+    let temp = this.get(index);
+
+    if (temp) {
+      temp.value = value;
+      return true;
+    }
+
+    return false;
+  }
 }
 
 const doublyLinkedList = new DoublyLinkedList(10);
@@ -121,4 +132,5 @@ doublyLinkedList.unshift(1);
 doublyLinkedList.unshift(19);
 console.log(doublyLinkedList.shift());
 console.log(doublyLinkedList.get(1));
+console.log(doublyLinkedList.set(1, 9));
 console.log(doublyLinkedList);
