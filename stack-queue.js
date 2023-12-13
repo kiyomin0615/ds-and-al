@@ -29,10 +29,27 @@ class Stack {
 
     return this;
   }
+
+  // Linked List의 shift()와 동일하다
+  pop() {
+    if (this.height === 0) {
+      return;
+    }
+
+    let temp = this.top;
+    this.top = this.top.next;
+    temp.next = null;
+
+    this.height--;
+
+    return temp;
+  }
 }
 
 let stack = new Stack(11);
 stack.push(23);
 stack.push(9);
 stack.push(20);
+stack.pop();
+stack.pop();
 console.log(stack);
