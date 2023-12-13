@@ -26,7 +26,7 @@ class Stack {
       newNode.next = this.top;
       this.top = newNode;
     }
-    
+
     this.height++;
 
     return this;
@@ -55,6 +55,23 @@ class Queue {
     this.last = newNode;
     this.length = 1;
   }
+
+  // Linked List의 push()와 동일하다
+  enqueue(value) {
+    const newNode = new Node(value);
+
+    if (this.length === 0) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+
+    this.length++;
+
+    return this;
+  }
 }
 
 let stack = new Stack(11);
@@ -66,4 +83,7 @@ stack.pop();
 console.log(stack);
 
 let queue = new Queue(4);
+queue.enqueue(9);
+queue.enqueue(5);
+queue.enqueue(21);
 console.log(queue);
