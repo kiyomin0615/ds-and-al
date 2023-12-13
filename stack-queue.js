@@ -13,7 +13,26 @@ class Stack {
     this.top = newNode;
     this.height = 1;
   }
+
+  // Linked List의 unshift()와 동일하다
+  push(value) {
+    const newNode = new Node(value);
+
+    if (this.height === 0) {
+      this.top = newNode;
+    } else {
+      newNode.next = this.top;
+      this.top = newNode;
+    }
+
+    this.height++;
+
+    return this;
+  }
 }
 
 let stack = new Stack(11);
+stack.push(23);
+stack.push(9);
+stack.push(20);
 console.log(stack);
