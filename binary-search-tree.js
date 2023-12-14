@@ -64,6 +64,14 @@ class BinarySearchTree {
 
     return false;
   }
+
+  minValueNode(currentNode) {
+    while (currentNode.left !== null) {
+      currentNode = currentNode.left;
+    }
+
+    return currentNode;
+  }
 }
 
 let bst = new BinarySearchTree();
@@ -71,4 +79,5 @@ bst.insert(47);
 bst.insert(21);
 bst.insert(99);
 console.log(bst.contains(5));
+console.log(bst.minValueNode(bst.root));
 console.log(bst);
