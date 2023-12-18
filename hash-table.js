@@ -25,10 +25,27 @@ class HashTable {
 
     return this;
   }
+
+  get(key) {
+    let index = this._hash(key);
+
+    if (this.dataMap[index]) {
+      for (let i = 0; i < this.dataMap[index].length; i++) {
+        if (this.dataMap[index][i][0] === key) {
+          return this.dataMap[index][i][1];
+        }
+      }
+    }
+
+    return null;
+  }
 }
 
 let hashTable = new HashTable();
 hashTable.set("bolts", 1400);
 hashTable.set("washers", 50);
 hashTable.set("lumber", 70);
+console.log(hashTable.get("bolts"));
+console.log(hashTable.get("washers"));
+console.log(hashTable.get("lumber"));
 console.log(hashTable);
