@@ -39,6 +39,19 @@ class HashTable {
 
     return null;
   }
+
+  getAllKeys() {
+    let allKeys = [];
+
+    for (let i = 0; i < this.dataMap.length; i++) {
+      if (this.dataMap[i]) {
+        for (let j = 0; j < this.dataMap[i].length; j++) {
+          allKeys.push(this.dataMap[i][j][0]);
+        }
+      }
+    }
+    return allKeys;
+  }
 }
 
 let hashTable = new HashTable();
@@ -48,4 +61,5 @@ hashTable.set("lumber", 70);
 console.log(hashTable.get("bolts"));
 console.log(hashTable.get("washers"));
 console.log(hashTable.get("lumber"));
+console.log(hashTable.getAllKeys());
 console.log(hashTable);
