@@ -24,10 +24,29 @@ class Graph {
 
     return false;
   }
+
+  removeEdge(vertex1, vertex2) {
+    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+      this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
+        (vertex) => vertex !== vertex2
+      );
+      this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
+        (vertex) => vertex !== vertex1
+      );
+      return true;
+    }
+
+    return false;
+  }
 }
 
 let graph = new Graph();
 graph.addVertex("A");
 graph.addVertex("B");
+graph.addVertex("C");
 graph.addEdge("A", "B");
+graph.addEdge("B", "C");
+graph.addEdge("C", "A");
+console.log(graph);
+graph.removeEdge("A", "B");
 console.log(graph);
