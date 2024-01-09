@@ -100,6 +100,30 @@ class BinarySearchTree {
 
     return results;
   }
+
+  // Depth First Search
+  // DFS는 재귀를 활용한다
+  // Pre-Order: Root - Left - Right
+  // In-Order: Left - Root - Right
+  // Post-Order: Left - Right - Root
+  DFSPreOrder() {
+    let results = [];
+
+    // recursive
+    function traverse(currentNode) {
+      results.push(currentNode.value);
+      if (currentNode.left) {
+        traverse(currentNode.left);
+      }
+      if (currentNode.right) {
+        traverse(currentNode.right);
+      }
+    }
+
+    traverse(this.root);
+
+    return results;
+  }
 }
 
 let bst = new BinarySearchTree();
@@ -113,4 +137,5 @@ bst.insert(82);
 console.log(bst.contains(5));
 console.log(bst.minValueNode(bst.root));
 console.log(bst.BFS());
+console.log(bst.DFSPreOrder());
 console.log(bst);
