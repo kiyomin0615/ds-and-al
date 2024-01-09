@@ -143,6 +143,25 @@ class BinarySearchTree {
 
     return results;
   }
+
+  DFSPostOrder() {
+    let results = [];
+
+    // recursive
+    function traverse(currentNode) {
+      if (currentNode.left) {
+        traverse(currentNode.left);
+      }
+      if (currentNode.right) {
+        traverse(currentNode.right);
+      }
+      results.push(currentNode.value);
+    }
+
+    traverse(this.root);
+
+    return results;
+  }
 }
 
 let bst = new BinarySearchTree();
@@ -158,4 +177,5 @@ console.log(bst.minValueNode(bst.root));
 console.log(bst.BFS());
 console.log(bst.DFSPreOrder());
 console.log(bst.DFSInOrder());
+console.log(bst.DFSPostOrder());
 console.log(bst);
