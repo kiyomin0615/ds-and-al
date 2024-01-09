@@ -72,12 +72,45 @@ class BinarySearchTree {
 
     return currentNode;
   }
+
+  // Breadth First Search
+  // BFS는 예약제 방식으로, 큐(queue)를 활용한다
+  BFS() {
+    let currentNode = this.root;
+    let queue = [];
+    let results = [];
+
+    // 예약
+    queue.push(currentNode);
+
+    while (queue.length) {
+      // 방문
+      currentNode = queue.shift();
+      results.push(currentNode.value);
+
+      if (currentNode.left) {
+        // 예약
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        // 예약
+        queue.push(currentNode.right);
+      }
+    }
+
+    return results;
+  }
 }
 
 let bst = new BinarySearchTree();
 bst.insert(47);
 bst.insert(21);
 bst.insert(99);
+bst.insert(18);
+bst.insert(27);
+bst.insert(52);
+bst.insert(82);
 console.log(bst.contains(5));
 console.log(bst.minValueNode(bst.root));
+console.log(bst.BFS());
 console.log(bst);
