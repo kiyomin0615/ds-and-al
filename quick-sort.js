@@ -1,3 +1,7 @@
+// Quick Sort는 정렬이 되지 않았을 때 "O(nlogn)"으로 효율적이다
+// Quick Sort는 정렬이 완료됐을 때 "O(n^2)"으로 비효율적이다
+  // 정렬이 (거의) 완료됐을 때는 Insertion Sort가 효율적이다
+// Quick Sort는 공간 복잡도 측면에서도 Merge Sort보다 효율적이다
 function swap(array, firstIndex, secondIndex) {
   let temp = array[firstIndex];
   array[firstIndex] = array[secondIndex];
