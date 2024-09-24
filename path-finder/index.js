@@ -3,6 +3,8 @@ let found = [];
 let visited = [];
 let parents = [];
 let playerPos;
+let pathIndex = 0;
+let shortestPath = [];
 
 const MAZE_SIZE = 15;
 const CELL_STATE = {
@@ -52,6 +54,8 @@ function startGame() {
   generateRandomMaze();
   createMazeDom();
   renderMaze();
+  BFS();
+  updateMaze();
 }
 
 function resetMaze() {
@@ -142,6 +146,73 @@ function renderMaze() {
       } else {
         mazeCellEl.style.backgroundColor = "royalblue";
       }
+
+      if (playerPos.y === y && playerPos.x === x) {
+        mazeCellEl.style.backgroundColor = "green";
+      }
     }
+  }
+}
+
+function BFS() {
+  const initialPos = new Pos(1, 1);
+  const q = new Queue();
+
+  found[initialPos.y][initialPos.x] = true; // 1. find
+  q.enqueue(initialPos); // 2. reserve
+
+  parents[initialPos.y][initialPos.x] = initialPos;
+
+  while (true) {
+    if (q.length() <= 0) {
+      break;
+    }
+
+    const nowPos = q.dequeue();
+    visited[(nowPos.y, nowPos.x)] = true; // 3. visit
+
+    for (let i = 0; i < 4; i++) {
+      let nextPos = new Pos(nowPos.y + DeltaY[i], nowPos.x + DeltaX[i]);
+
+      if (maze[nextPos.y][nextPos.x] === CELL_STATE.BLOCKED) {
+        continue;
+      }
+      if (found[nextPos.y][nextPos.x] === true) {
+        continue;
+      }
+
+      found[nextPos.y][nextPos.x] = true; // found
+      q.enqueue(nextPos); // reserve
+
+      parents[nextPos.y][nextPos.x] = nowPos;
+    }
+  }
+
+  findShortestPath();
+}
+
+function findShortestPath() {
+  const pathFromDestination = [];
+
+  let y = MAZE_SIZE - 2;
+  let x = MAZE_SIZE - 2;
+
+  while (!(parents[y][x].y === y && parents[y][x].x === x)) {
+    pathFromDestination.push(new Pos(y, x));
+
+    let parentPos = parents[y][x];
+    y = parentPos.y;
+    x = parentPos.x;
+  }
+  pathFromDestination.push(new Pos(1, 1));
+
+  shortestPath = pathFromDestination.reverse();
+}
+
+function updateMaze() {
+  if (pathIndex < shortestPath.length) {
+    playerPos = shortestPath[pathIndex++];
+    renderMaze();
+    setTimeout(updateMaze, 200);
   }
 }
