@@ -8,8 +8,8 @@ const MAZE_SIZE = 15;
 const CELL_STATE = {
   BLOCKED: 0,
   EMPTY: 1,
-  EXIT: 9
-}
+  EXIT: 9,
+};
 
 class Pos {
   constructor(y, x) {
@@ -38,7 +38,7 @@ class Queue {
 
 function create2DArray(row, col) {
   const array = new Array(row).fill(null);
-  const array2D = array.map(item => new Array(col).fill(null));
+  const array2D = array.map((item) => new Array(col).fill(null));
   return array2D;
 }
 
@@ -49,13 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function startGame() {
   resetMaze();
+  generateRandomMaze();
+  createMazeDom();
+  renderMaze();
 }
 
 function resetMaze() {
-  maze = create2DArray(MAZE_SIZE, MAZE_SIZE); // Pos[15, 15]
-  found = create2DArray(MAZE_SIZE, MAZE_SIZE); // bool[15, 15]
-  visited = create2DArray(MAZE_SIZE, MAZE_SIZE); // bool[15, 15]
-  parents = create2DArray(MAZE_SIZE, MAZE_SIZE); // Pos[15, 15]
+  maze = create2DArray(MAZE_SIZE, MAZE_SIZE);
+  found = create2DArray(MAZE_SIZE, MAZE_SIZE);
+  visited = create2DArray(MAZE_SIZE, MAZE_SIZE);
+  parents = create2DArray(MAZE_SIZE, MAZE_SIZE);
 
   playerPos = new Pos(1, 1);
   path = []; // Pos[]
@@ -63,10 +66,82 @@ function resetMaze() {
 
   for (let y = 0; y < MAZE_SIZE; y++) {
     for (let x = 0; x < MAZE_SIZE; x++) {
-      maze[y][x] = 0;
+      maze[y][x] = CELL_STATE.EMPTY;
       found[y][x] = false;
       visited[y][x] = false;
       parents[y][x] = new Pos(-1, -1);
+    }
+  }
+}
+
+function generateRandomMaze() {
+  for (let y = 0; y < MAZE_SIZE; y++) {
+    for (let x = 0; x < MAZE_SIZE; x++) {
+      if (x % 2 === 0 || y % 2 === 0) {
+        maze[y][x] = CELL_STATE.BLOCKED;
+      } else {
+        maze[y][x] = CELL_STATE.EMPTY;
+      }
+    }
+  }
+
+  for (let y = 0; y < MAZE_SIZE; y++) {
+    for (let x = 0; x < MAZE_SIZE; x++) {
+      if (x % 2 === 0 || y % 2 === 0) {
+        continue;
+      }
+      if (x === MAZE_SIZE - 2 && y === MAZE_SIZE - 2) {
+        continue;
+      }
+      if (x === MAZE_SIZE - 2) {
+        maze[y + 1][x] = CELL_STATE.EMPTY;
+        continue;
+      }
+      if (y === MAZE_SIZE - 2) {
+        maze[y][x + 1] = CELL_STATE.EMPTY;
+        continue;
+      }
+      if (Math.random() < 0.5) {
+        maze[y][x + 1] = CELL_STATE.EMPTY;
+      } else {
+        maze[y + 1][x] = CELL_STATE.EMPTY;
+      }
+    }
+  }
+
+  maze[MAZE_SIZE - 2][MAZE_SIZE - 2] = CELL_STATE.EXIT;
+}
+
+function createMazeDom() {
+  const mazeContainerEl = document.getElementById("maze-container");
+
+  for (let y = 0; y < MAZE_SIZE; y++) {
+    const mazeRowEl = document.createElement("div");
+    mazeRowEl.className = "maze-row";
+
+    for (let x = 0; x < MAZE_SIZE; x++) {
+      const mazeCellEl = document.createElement("div");
+      mazeCellEl.className = "maze-cell";
+      mazeCellEl.id = `cell-${y}-${x}`;
+      mazeRowEl.appendChild(mazeCellEl);
+    }
+
+    mazeContainerEl.appendChild(mazeRowEl);
+  }
+}
+
+function renderMaze() {
+  for (let y = 0; y < MAZE_SIZE; y++) {
+    for (let x = 0; x < MAZE_SIZE; x++) {
+      let mazeCellEl = document.querySelector(`#cell-${y}-${x}`);
+
+      if (maze[y][x] === CELL_STATE.BLOCKED) {
+        mazeCellEl.style.backgroundColor = "red";
+      } else if (maze[y][x] === CELL_STATE.EXIT) {
+        mazeCellEl.style.backgroundColor = "yellow";
+      } else {
+        mazeCellEl.style.backgroundColor = "royalblue";
+      }
     }
   }
 }
