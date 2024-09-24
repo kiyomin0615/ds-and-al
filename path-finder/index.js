@@ -44,12 +44,14 @@ function create2DArray(row, col) {
   return array2D;
 }
 
+const startButtonEl = document.getElementById("start-button");
+
 document.addEventListener("DOMContentLoaded", () => {
-  const startButtonEl = document.getElementById("start-button");
   startButtonEl.addEventListener("click", startGame);
 });
 
 function startGame() {
+  startButtonEl.textContent = "Restart Game";
   resetMaze();
   generateRandomMaze();
   createMazeDom();
@@ -118,6 +120,7 @@ function generateRandomMaze() {
 
 function createMazeDom() {
   const mazeContainerEl = document.getElementById("maze-container");
+  mazeContainerEl.innerHTML = "";
 
   for (let y = 0; y < MAZE_SIZE; y++) {
     const mazeRowEl = document.createElement("div");
@@ -140,15 +143,15 @@ function renderMaze() {
       let mazeCellEl = document.querySelector(`#cell-${y}-${x}`);
 
       if (maze[y][x] === CELL_STATE.BLOCKED) {
-        mazeCellEl.style.backgroundColor = "red";
+        mazeCellEl.style.backgroundColor = "rgb(0, 0, 0)";
       } else if (maze[y][x] === CELL_STATE.EXIT) {
-        mazeCellEl.style.backgroundColor = "yellow";
+        mazeCellEl.style.backgroundColor = "rgb(253, 253, 80)";
       } else {
-        mazeCellEl.style.backgroundColor = "royalblue";
+        mazeCellEl.style.backgroundColor = "rgb(79, 108, 197)";
       }
 
       if (playerPos.y === y && playerPos.x === x) {
-        mazeCellEl.style.backgroundColor = "green";
+        mazeCellEl.style.backgroundColor = "rgb(102, 202, 102)";
       }
     }
   }

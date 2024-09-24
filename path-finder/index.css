@@ -1,12 +1,16 @@
 body {
-  background-color: rgb(209, 235, 249);
+  background-color: rgb(243, 236, 230);
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
-.container {
-  width: 100%;
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
   margin: 3rem auto;
   text-align: center;
 }
@@ -17,7 +21,6 @@ h1 {
 }
 
 #maze-container {
-  display: inline-block;
   margin: 0 auto;
 }
 
@@ -35,10 +38,15 @@ h1 {
   align-items: center;
 }
 
-button {
+#start-button {
+  cursor: pointer;
   margin-top: 2rem;
   font-size: 1rem;
   font-weight: bold;
+  width: 10rem;
   padding: 1rem;
+  border: none;
+  border-radius: 6px;
   background-color: rgba(234, 180, 158, 0.565);
+  color: rgb(32, 29, 26);
 }
